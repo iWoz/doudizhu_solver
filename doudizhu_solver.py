@@ -70,16 +70,16 @@ def get_all_hands(pokers):
 	sequence_num = 1
 	i = 1
 	while i < len(distincted_sorted_pokers):
-		if distincted_sorted_pokers[i] - lastPoker == 1:
+		# 只有3-A能连成顺子
+		if distincted_sorted_pokers[i] <= 14 and distincted_sorted_pokers[i] - lastPoker == 1:
 			sequence_num += 1
-		else:
 			if sequence_num >= 5:
 				j = 0
 				while sequence_num - j >= 5:
-					for x in xrange(j+1):
-						# 顺子
-						combs.append({'type':COMB_TYPE.STRIGHT, 'main':sequence_num - j, 'sub':lastPoker - x})
+					# 顺子
+					combs.append({'type':COMB_TYPE.STRIGHT, 'main':sequence_num - j, 'sub':distincted_sorted_pokers[i]})
 					j += 1
+		else:
 			sequence_num = 1
 		lastPoker = distincted_sorted_pokers[i]
 		i += 1
