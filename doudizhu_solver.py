@@ -1,12 +1,12 @@
 # -*- coding: UTF-8 -*-
 # Author: Tim Wu
 
-# 是否允许三带一
-ALLOW_THREE_ONE = True
-# 是否允许三带二
-ALLOW_THREE_TWO = False
-# 是否允许四带二
-ALLOW_FOUR_TWO = True
+# # 是否允许三带一
+# ALLOW_THREE_ONE = True
+# # 是否允许三带二
+# ALLOW_THREE_TWO = False
+# # 是否允许四带二
+# ALLOW_FOUR_TWO = True
 
 # 牌型枚举
 class COMB_TYPE:
@@ -185,12 +185,26 @@ def hand_out(me_pokers, enemy_pokers, last_hand, cache):
 	cache[key] = False
 	return False
 
-# 残局1 
+# 残局1
+# 是否允许三带一
+ALLOW_THREE_ONE = True
+# 是否允许三带二
+ALLOW_THREE_TWO = False
+# 是否允许四带二
+ALLOW_FOUR_TWO = True
+
 lord = [17,16,11,11,9,9,9]
 farmer = [3,3,3,3,4,5,6,7,10,10,14,14,14,14]
 print hand_out(farmer, lord, None, {})
 
 # 残局2
+# # 是否允许三带一
+# ALLOW_THREE_ONE = False
+# # 是否允许三带二
+# ALLOW_THREE_TWO = False
+# # 是否允许四带二
+# ALLOW_FOUR_TWO = True
+# 
 # lord = [14,14,11,11]
 # farmer = [16,13,13,13,12,12,12,10,10,9,9,8,8]
 # print hand_out(farmer, lord, None, {})
