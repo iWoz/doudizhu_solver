@@ -1,13 +1,6 @@
 # -*- coding: UTF-8 -*-
 # Author: Tim Wu
 
-# # 是否允许三带一
-# ALLOW_THREE_ONE = True
-# # 是否允许三带二
-# ALLOW_THREE_TWO = False
-# # 是否允许四带二
-# ALLOW_FOUR_TWO = True
-
 # 牌型枚举
 class COMB_TYPE:
 	PASS, SINGLE, PAIR, TRIPLE, TRIPLE_ONE, TRIPLE_TWO, FOURTH_TWO_ONES, FOURTH_TWO_PAIRS, STRIGHT, BOMB, KING_PAIR = range(11)
