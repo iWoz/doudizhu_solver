@@ -169,19 +169,20 @@ def hand_out(me_pokers, enemy_pokers, last_hand, cache):
 		return True
 	if not enemy_pokers:
 		return False
-	if (str(me_pokers),str(enemy_pokers),str(last_hand)) in cache:
-		return cache[(str(me_pokers),str(enemy_pokers),str(last_hand))]
+	key = str(me_pokers) + str(enemy_pokers) + str(last_hand)
+	if key in cache:
+		return cache[key]
 	all_hands = get_all_hands(me_pokers)
 	for hand in all_hands:
 		if (last_hand and can_comb2_beat_comb1(last_hand, hand)) or (not last_hand and hand['type'] != COMB_TYPE.PASS):
 			if not hand_out(enemy_pokers, make_hand(me_pokers, hand), hand, cache):
-				cache[(str(me_pokers),str(enemy_pokers),str(last_hand))] = True
+				cache[key] = True
 				return True
 		elif last_hand and hand['type'] == COMB_TYPE.PASS:
 			if not hand_out(enemy_pokers, me_pokers, None, cache):
-				cache[(str(me_pokers),str(enemy_pokers),str(last_hand))] = True
+				cache[key] = True
 				return True
-	cache[(str(me_pokers),str(enemy_pokers),str(last_hand))] = False
+	cache[key] = False
 	return False
 
 # 残局1 
