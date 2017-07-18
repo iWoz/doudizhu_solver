@@ -27,17 +27,12 @@ def get_all_hands(pokers):
     # 过牌
     combs = [HAND_PASS]
 
-
     # 获取每个点数的数目
-    dic = {}
-    for poker in pokers:
-        dic[poker] = pokers.count(poker)
-
+    dic = counter(pokers)
 
     # 王炸
     if little_joker in pokers and big_joker in pokers:
         combs.append({'type':COMB_TYPE.BOMB, 'main': big_joker, 'component': [big_joker, little_joker]})
-
 
     # 非顺子, 非王炸
     for poker in dic:
@@ -86,12 +81,10 @@ def get_all_hands(pokers):
                         combs.append({'type':COMB_TYPE.FOURTH_TWO_PAIRS, 'main':poker, \
                             'component': [poker, poker, poker, poker, pairs[i], pairs[i], pairs[j], pairs[j]]})
 
-
     # 所有顺子组合
     # 以 COMB_TYPE.STRIGHT * len(straight) 标志顺子牌型, 不同长度的顺子是不同的牌型
     for straight in create_straight(list(set(pokers)), 5):
         combs.append({'type':COMB_TYPE.STRIGHT * len(straight), 'main': straight[0], 'component': straight})
-
 
     # 返回所有可能的出牌类型
     return combs
@@ -100,7 +93,6 @@ def get_all_hands(pokers):
 
 # 根据列表创建顺子
 def create_straight(list_of_nums, min_length):
-
     a = sorted(list_of_nums)
     lens = len(a)
     for start in range(0, lens):
@@ -112,6 +104,15 @@ def create_straight(list_of_nums, min_length):
 
 
 
+# 统计列表中每个元素的个数
+def counter(pokers):
+    dic = {}
+    for poker in pokers:
+        dic[poker] = pokers.count(poker)
+    return dic
+
+
+
 # comb1 先出，问后出的 comb2 是否能打过 comb1
 # 1. 同种牌型比较 main 值, main 值大的胜
 # 2. 炸弹大过其他牌型
@@ -119,9 +120,11 @@ def create_straight(list_of_nums, min_length):
 def can_beat(comb1, comb2):
     if not comb2 or comb2['type'] == COMB_TYPE.PASS:
         return False
+
     if not comb1 or comb1['type'] == COMB_TYPE.PASS:
         return True
-    elif comb1['type'] == comb2['type']:
+
+    if comb1['type'] == comb2['type']:
         return comb2['main'] > comb1['main']
     elif comb2['type'] == COMB_TYPE.BOMB:
         return True
@@ -143,10 +146,10 @@ def make_hand(pokers, hand):
 # 模拟每次出牌, my_pokers 为当前我的牌, enemy_pokers 为对手的牌
 # last_hand 为上一手对手出的牌, cache 用于缓存牌局与胜负关系
 def hand_out(my_pokers, enemy_pokers, last_hand = None, cache = {}):
-
     # 牌局终止的边界条件
     if not my_pokers:
         return True
+        
     if not enemy_pokers:
         return False
 
@@ -194,8 +197,7 @@ if __name__ == '__main__':
     ALLOW_FOUR_TWO = True
 
     lord = [19,18,11,11,9,9,9]
-    # farmer = [3,3,3,3,4,5,6,7,10,10,14,14,14,14]
-    farmer = [16, 16, 16, 14, 14, 14, 3, 4, 5, 6, 7, 8, 9, 10]
+    farmer = [3,3,3,3,4,5,6,7,10,10,14,14,14,14]
     result = hand_out(farmer, lord)
 
 
